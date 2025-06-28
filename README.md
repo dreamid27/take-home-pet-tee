@@ -1,31 +1,22 @@
 # pet-tee-generator
 
-Sebuah aplikasi generator hewan menggunakan typescript, vite, react, dexie js, dan shadcnui, includes best practices for accessibility, testing, and scalable component structure.
+A pet image generator application built with TypeScript, Vite, React, DexieJS, and Shadcn UI. The project follows best practices for accessibility, testing, and scalable component structure.
 
-## Tech Stack
+**Live Demo:** [https://pet-tee.netlify.app/](https://pet-tee.netlify.app/)
 
-- **Vite** – Fast build tool and dev server
-- **React** – UI library
-- **DexieJS** - Local Database (index DB)
-- **TypeScript** – Static typing
-- **TailwindCSS** – Utility-first CSS framework
-- **Shadcn UI** – Accessible, customizable UI components
-- **Vitest** – Blazing fast unit testing
-- **Testing Library** – For reliable component tests
+![Example generated pet image 1](./image1.png)
+_Example generated pet image 1_
 
-## Folder Structure
+![Example generated pet image 2](./image2.png)
+_Example generated pet image 2_
 
-```
-src/
-  components/      # UI and block components
-    blocks/        # Feature-specific blocks (e.g., image-card, smart-bar)
-    ui/            # Reusable UI primitives (e.g., button, dialog)
-  database/        # Local database logic (Dexie)
-  hooks/           # Custom React hooks
-  pages/           # Main app pages
-  assets/          # Static assets
-  lib/             # Utilities
-```
+## Feature List
+
+- Smart Box for generating pet images
+- History of generated images
+- Quick 'Use Prompt' button
+- Dark Mode support
+- Reset Images functionality
 
 ## Installation
 
@@ -85,11 +76,32 @@ cp .env.example .env
   ```
   Uses [Vitest](https://vitest.dev/) and [Testing Library](https://testing-library.com/).
 
+## Tech Stack
+
+- **Vite** – Fast build tool and dev server
+- **React** – UI library
+- **DexieJS** – Local Database (IndexedDB)
+- **TypeScript** – Static typing
+- **TailwindCSS** – Utility-first CSS framework
+- **Shadcn UI** – Accessible, customizable UI components
+- **Vitest** – Blazing fast unit testing
+- **Testing Library** – For reliable component tests
+
+## Folder Structure
+
+```
+src/
+  components/      # UI and block components
+    blocks/        # Feature-specific blocks (e.g., image-card, smart-bar)
+    ui/            # Reusable UI primitives (e.g., button, dialog)
+  database/        # Local database logic (Dexie)
+  hooks/           # Custom React hooks
+  pages/           # Main app pages
+  assets/          # Static assets
+  lib/             # Utilities
+```
+
 ## Accessibility & Best Practices
 
 - All components follow accessibility best practices (ARIA, keyboard navigation, etc.).
 - Uses early returns, descriptive naming, and DRY principles throughout the codebase.
-
----
-
-Feel free to customize this template to fit your project needs!
