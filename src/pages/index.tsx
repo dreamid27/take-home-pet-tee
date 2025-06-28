@@ -86,14 +86,13 @@ export default function Index() {
   });
 
   const images = useLiveQuery(() => db.images.reverse().toArray()) || [];
-  const generateImage = async (customPrompt: string) => {
+  const generateImage = async () => {
     setState((prev) => ({ ...prev, isLoading: true, error: null }));
 
     try {
       const response = await fetch("/api/predictions", {
         method: "POST",
         headers: {
-          Authorization: `Bearer `,
           "Content-Type": "application/json",
           Prefer: "wait",
         },
@@ -101,7 +100,7 @@ export default function Index() {
           version:
             "bytedance/hyper-flux-8step:81946b1e09b256c543b35f37333a30d0d02ee2cd8c4f77cd915873a1ca622bad",
           input: {
-            prompt: `a ${state.animal} smiling and looking directly at the camera, wearing a white t-shirt with the word "${customPrompt}" printed on it.`,
+            prompt: `a ${state.animal} smiling and looking directly at the camera, wearing a white t-shirt with the word "${state.prompt}" printed on it.`,
             num_outputs: 1,
             aspect_ratio: "1:1",
             output_format: "webp",
@@ -113,21 +112,32 @@ export default function Index() {
       });
 
       if (!response.ok) {
-        throw new Error(`API request failed with status ${response.status}`);
+        const errorData = await response.json().catch(() => ({}));
+        const errorMessage =
+          errorData.detail ||
+          `API request failed with status ${response.status}`;
+        throw new Error(errorMessage);
       }
 
       const data = await response.json();
 
       if (data.output && data.output.length > 0) {
-        setState((prev) => ({ ...prev, imageUrl: data.output[0] }));
+        await db.images.add({
+          prompt: state.prompt,
+          url: data.output[0],
+          kind: state.animal,
+          created_at: new Date().toISOString(),
+        });
       } else {
         throw new Error("No image URL returned from API");
       }
     } catch (err) {
       console.error("Error generating image:", err);
+      const errorMessage =
+        err instanceof Error ? err.message : "Failed to generate image";
       setState((prev) => ({
         ...prev,
-        error: err instanceof Error ? err.message : "Failed to generate image",
+        error: errorMessage,
       }));
     } finally {
       setState((prev) => ({ ...prev, isLoading: false }));
@@ -135,19 +145,20 @@ export default function Index() {
   };
 
   const handleGenerateImage = async () => {
-    setState((prev) => ({ ...prev, isLoading: true }));
-    setTimeout(async () => {
-      // Add the new friend!
-      const id = await db.images.add({
-        prompt: state.prompt,
-        url: randomImagesURLs[
-          Math.floor(Math.random() * randomImagesURLs.length)
-        ],
-        kind: state.animal,
-        created_at: new Date().toISOString(),
-      });
-      setState((prev) => ({ ...prev, isLoading: false }));
-    }, 5000);
+    generateImage();
+    // setState((prev) => ({ ...prev, isLoading: true }));
+    // setTimeout(async () => {
+    //   // Add the new friend!
+    //   await db.images.add({
+    //     prompt: state.prompt,
+    //     url: randomImagesURLs[
+    //       Math.floor(Math.random() * randomImagesURLs.length)
+    //     ],
+    //     kind: state.animal,
+    //     created_at: new Date().toISOString(),
+    //   });
+    //   setState((prev) => ({ ...prev, isLoading: false }));
+    // }, 5000);
   };
 
   const galleryImages = (index: number) => {
@@ -271,7 +282,7 @@ export default function Index() {
           onCopyPrompt={handleCopyPrompt}
         />
         <div className="h-[48px] flex items-center justify-between">
-          <h2 className="text-lg font-medium">Pet Tee Generator</h2>
+          <h2 className="text-md font-medium">Pet Tee Generator</h2>
           <div className="flex items-center gap-2">
             <Button
               variant="outline"
@@ -331,9 +342,12 @@ export default function Index() {
           className="bottom-11 fixed left-1/2 -translate-x-1/2 right-0"
           isLoading={state.isLoading}
           values={{ prompt: state.prompt, animal: state.animal }}
-          onChange={(values) => setState((prev) => ({ ...prev, ...values }))}
+          onChange={(values) =>
+            setState((prev) => ({ ...prev, ...values, error: null }))
+          }
           onSubmit={handleGenerateImage}
           animals={animalTypes}
+          error={state.error}
         />
       </div>
     </div>

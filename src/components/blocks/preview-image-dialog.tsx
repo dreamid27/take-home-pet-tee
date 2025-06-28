@@ -129,7 +129,7 @@ const PreviewImageDialog = ({
               target="_blank"
               rel="noopener noreferrer"
               onClick={handleDownload}
-              className="h-12 w-12 rounded-xl bg-white/90 hover:bg-white text-foreground flex items-center justify-center"
+              className="h-12 w-12 rounded-xl bg-black/80 hover:bg-black text-white flex items-center justify-center"
             >
               <Download className="h-5 w-5" />
             </a>
