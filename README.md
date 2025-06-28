@@ -1,54 +1,95 @@
-# React + TypeScript + Vite
+# pet-tee-generator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sebuah aplikasi generator hewan menggunakan typescript, vite, react, dexie js, dan shadcnui, includes best practices for accessibility, testing, and scalable component structure.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Vite** – Fast build tool and dev server
+- **React** – UI library
+- **DexieJS** - Local Database (index DB)
+- **TypeScript** – Static typing
+- **TailwindCSS** – Utility-first CSS framework
+- **Shadcn UI** – Accessible, customizable UI components
+- **Vitest** – Blazing fast unit testing
+- **Testing Library** – For reliable component tests
 
-## Expanding the ESLint configuration
+## Folder Structure
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+```
+src/
+  components/      # UI and block components
+    blocks/        # Feature-specific blocks (e.g., image-card, smart-bar)
+    ui/            # Reusable UI primitives (e.g., button, dialog)
+  database/        # Local database logic (Dexie)
+  hooks/           # Custom React hooks
+  pages/           # Main app pages
+  assets/          # Static assets
+  lib/             # Utilities
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Installation
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. **Clone the repository:**
+   ```sh
+   git clone git@github.com:dreamid27/take-home-pet-tee.git
+   cd take-home-pet-tee
+   ```
+2. **Install dependencies:**
+   ```sh
+   npm install
+   # or
+   yarn install
+   ```
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+## Running the App
+
+Before running the app, copy the example environment file and fill in the required variables:
+
+```sh
+cp .env.example .env
+# Open .env and fill in the required variables (e.g., VITE_REPLICATE_API_TOKEN)
 ```
+
+- **Development mode:**
+
+  ```sh
+  npm run dev
+  # or
+  yarn dev
+  ```
+
+  The app will be available at [http://localhost:5173](http://localhost:5173) by default.
+
+- **Production build:**
+
+  ```sh
+  npm run build
+  # or
+  yarn build
+  ```
+
+- **Preview production build:**
+  ```sh
+  npm run preview
+  # or
+  yarn preview
+  ```
+
+## Testing
+
+- **Run all tests:**
+  ```sh
+  npm test
+  # or
+  yarn test
+  ```
+  Uses [Vitest](https://vitest.dev/) and [Testing Library](https://testing-library.com/).
+
+## Accessibility & Best Practices
+
+- All components follow accessibility best practices (ARIA, keyboard navigation, etc.).
+- Uses early returns, descriptive naming, and DRY principles throughout the codebase.
+
+---
+
+Feel free to customize this template to fit your project needs!
