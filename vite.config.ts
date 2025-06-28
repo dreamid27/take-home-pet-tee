@@ -20,9 +20,6 @@ export default ({ mode }: { mode: string }) => {
           target: "https://api.replicate.com",
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, "/v1"),
-          headers: {
-            Authorization: `Bearer ${env.REPLICATE_API_TOKEN}`,
-          },
           configure: (proxy) => {
             proxy.on("error", (err) => {
               console.error("Proxy error:", err);

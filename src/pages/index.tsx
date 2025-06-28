@@ -17,32 +17,7 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import SmartBar from "@/components/blocks/smart-bar";
 import { toast } from "sonner";
-
-const ImageCard = ({
-  image,
-  onClick,
-}: {
-  image: { id: number; url: string; prompt: string };
-  onClick: (open: boolean) => void;
-}) => {
-  const [isLoading, setIsLoading] = useState(true);
-
-  return (
-    <div className="aspect-square bg-muted  overflow-hidden relative">
-      {isLoading && <Skeleton className="absolute inset-0 w-full h-full " />}
-      <img
-        src={image.url}
-        alt={image.prompt}
-        className={`w-full h-full object-cover transition-opacity duration-300 ${
-          isLoading ? "opacity-0" : "opacity-100"
-        }`}
-        onClick={() => onClick(true)}
-        onLoad={() => setIsLoading(false)}
-        onError={() => setIsLoading(false)}
-      />
-    </div>
-  );
-};
+import { ImageCard, ImageCardLoading } from "@/components/blocks/image-card";
 
 const animalTypes = [
   {
@@ -57,19 +32,6 @@ const animalTypes = [
     label: "Gorilla",
     value: "gorilla",
   },
-];
-
-const randomImagesURLs = [
-  "https://images.pexels.com/photos/110820/pexels-photo-110820.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/247599/pexels-photo-247599.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/1661179/pexels-photo-1661179.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/567674/pexels-photo-567674.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/103629/pexels-photo-103629.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/133465/pexels-photo-133465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/460775/pexels-photo-460775.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/735465/pexels-photo-735465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  "https://images.pexels.com/photos/97533/pexels-photo-97533.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
 ];
 
 export default function Index() {
@@ -96,6 +58,7 @@ export default function Index() {
         headers: {
           "Content-Type": "application/json",
           Prefer: "wait",
+          Authorization: `Bearer ${import.meta.env.VITE_REPLICATE_API_TOKEN}`,
         },
         body: JSON.stringify({
           version:
@@ -147,19 +110,6 @@ export default function Index() {
 
   const handleGenerateImage = async () => {
     generateImage();
-    // setState((prev) => ({ ...prev, isLoading: true }));
-    // setTimeout(async () => {
-    //   // Add the new friend!
-    //   await db.images.add({
-    //     prompt: state.prompt,
-    //     url: randomImagesURLs[
-    //       Math.floor(Math.random() * randomImagesURLs.length)
-    //     ],
-    //     kind: state.animal,
-    //     created_at: new Date().toISOString(),
-    //   });
-    //   setState((prev) => ({ ...prev, isLoading: false }));
-    // }, 5000);
   };
 
   const galleryImages = (index: number) => {
@@ -272,7 +222,7 @@ export default function Index() {
 
   return (
     <div className="w-full h-full min-h-screen bg-sidebar">
-      <div className="container mx-auto p-4">
+      <div className="container mx-auto p-4 pb-[200px]">
         <PreviewImageDialog
           selectedImage={state.selectedImage}
           open={!!state.selectedImage}
@@ -325,9 +275,7 @@ export default function Index() {
         <div className="w-full py-8">
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-1">
             {state.isLoading && (
-              <div className="aspect-square bg-muted overflow-hidden relative">
-                <Skeleton className="absolute inset-0 w-full h-full " />
-              </div>
+              <ImageCardLoading isLoading={state.isLoading} />
             )}
             {images.map((image, index) => (
               <ImageCard
