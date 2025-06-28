@@ -10,6 +10,9 @@ _Example generated pet image 1_
 ![Example generated pet image 2](./image2.png)
 _Example generated pet image 2_
 
+![Example generated pet image 3](./image3.png)
+_Example generated pet image 3_
+
 ## Feature List
 
 - Smart Box for generating pet images
