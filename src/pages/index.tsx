@@ -93,7 +93,7 @@ export default function Index() {
       const response = await fetch("/api/predictions", {
         method: "POST",
         headers: {
-          Authorization: `Bearer r8_9zrGQcAedE0HZ2TMWUqfCth3Ajm1kmN4MwSBD`,
+          Authorization: `Bearer `,
           "Content-Type": "application/json",
           Prefer: "wait",
         },
