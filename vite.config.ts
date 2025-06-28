@@ -33,7 +33,7 @@ export default ({ mode }: { mode: string }) => {
     },
     test: {
       // 👋 add the line below to add jsdom to vite
-      setupFiles: "./setup-test.ts",
+      setupFiles: path.resolve(__dirname, "setup-test.ts"),
       environment: "jsdom",
     },
   } as UserConfig);
