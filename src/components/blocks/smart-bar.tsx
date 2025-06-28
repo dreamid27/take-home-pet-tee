@@ -9,6 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+import { ArrowUp } from "lucide-react";
 
 const SmartBar = ({
   isLoading,
@@ -47,7 +48,7 @@ const SmartBar = ({
           onValueChange={(value) => onChange({ ...values, animal: value })}
           value={values.animal}
         >
-          <SelectTrigger className="w-[180px] bg-background/30 border-none disabled:opacity-70">
+          <SelectTrigger className="w-[180px] bg-background/30 border-none disabled:opacity-70 data-[placeholder]:text-muted-foreground data-[placeholder]:opacity-60 dark:data-[placeholder]:text-white dark:data-[placeholder]:opacity-70">
             <SelectValue placeholder="Animal Type" />
           </SelectTrigger>
           <SelectContent>
@@ -72,7 +73,7 @@ const SmartBar = ({
               }
             }}
             placeholder="Type your message here..."
-            className="flex-1 placeholder:opacity-40  focus-visible:ring-0 bg-background/30 focus-visible:ring-offset-0 border-0 resize-none disabled:opacity-70"
+            className="flex-1 placeholder:opacity-60 dark:placeholder:text-white dark:placeholder:opacity-70  focus-visible:ring-0 bg-background/30 focus-visible:ring-offset-0 border-0 resize-none disabled:opacity-70"
           />
         </div>
         <div className="flex justify-between gap-2">
@@ -92,20 +93,7 @@ const SmartBar = ({
               {isLoading ? (
                 <div className="h-5 w-5 animate-spin rounded-full border-2 border-background border-t-primary"></div>
               ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="m22 2-7 20-4-9-9-4Z" />
-                  <path d="M22 2 11 13" />
-                </svg>
+                <ArrowUp />
               )}
             </Button>
           </div>
