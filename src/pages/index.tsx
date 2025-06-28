@@ -86,6 +86,7 @@ export default function Index() {
   });
 
   const images = useLiveQuery(() => db.images.reverse().toArray()) || [];
+
   const generateImage = async () => {
     setState((prev) => ({ ...prev, isLoading: true, error: null }));
 

@@ -1,7 +1,7 @@
 import path from "path";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react-swc";
-import { defineConfig, loadEnv } from "vite";
+import { defineConfig, loadEnv, type UserConfig } from "vite";
 
 // https://vite.dev/config/
 export default ({ mode }: { mode: string }) => {
@@ -31,5 +31,10 @@ export default ({ mode }: { mode: string }) => {
         },
       },
     },
-  });
+    test: {
+      // 👋 add the line below to add jsdom to vite
+      setupFiles: "./setup-test.ts",
+      environment: "jsdom",
+    },
+  } as UserConfig);
 };

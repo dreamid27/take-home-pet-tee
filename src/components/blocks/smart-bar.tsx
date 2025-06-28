@@ -39,6 +39,7 @@ const SmartBar = ({
         "glass-effect w-full max-w-10/12 md:max-w-3xl p-4 shadow-2xl border-[2px] rounded-4xl bg-background/40",
         className
       )}
+      aria-label="wrapper-container"
     >
       <div className="flex gap-2 flex-col w-full">
         <Select
@@ -86,6 +87,7 @@ const SmartBar = ({
               disabled={isLoading || !values.prompt || !values.animal}
               className="relative"
               variant={"default"}
+              aria-label="submit-button"
             >
               {isLoading ? (
                 <div className="h-5 w-5 animate-spin rounded-full border-2 border-background border-t-primary"></div>
