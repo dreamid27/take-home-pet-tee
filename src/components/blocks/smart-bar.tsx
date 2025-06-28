@@ -37,7 +37,7 @@ const SmartBar = ({
   return (
     <div
       className={cn(
-        "glass-effect w-full max-w-10/12 md:max-w-3xl p-4 shadow-2xl border-[2px] rounded-4xl bg-background/40",
+        "glass-effect w-full max-w-full md:max-w-3xl p-4 shadow-2xl border-[2px] rounded-4xl bg-background/40",
         className
       )}
       aria-label="wrapper-container"

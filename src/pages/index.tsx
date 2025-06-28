@@ -338,18 +338,19 @@ export default function Index() {
             ))}
           </div>
         </div>
-
-        <SmartBar
-          className="bottom-11 fixed left-1/2 -translate-x-1/2 right-0"
-          isLoading={state.isLoading}
-          values={{ prompt: state.prompt, animal: state.animal }}
-          onChange={(values) =>
-            setState((prev) => ({ ...prev, ...values, error: null }))
-          }
-          onSubmit={handleGenerateImage}
-          animals={animalTypes}
-          error={state.error}
-        />
+        <div className="pointer-events-none bottom-11 fixed left-1/2 -translate-x-1/2 right-0 w-full px-3 flex justify-center items-center">
+          <SmartBar
+            className="pointer-events-auto"
+            isLoading={state.isLoading}
+            values={{ prompt: state.prompt, animal: state.animal }}
+            onChange={(values) =>
+              setState((prev) => ({ ...prev, ...values, error: null }))
+            }
+            onSubmit={handleGenerateImage}
+            animals={animalTypes}
+            error={state.error}
+          />
+        </div>
       </div>
     </div>
   );

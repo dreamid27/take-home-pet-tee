@@ -93,7 +93,7 @@ const PreviewImageDialog = ({
         </Button>
 
         {/* Image with sliding animation */}
-        <div className="flex items-center justify-center h-full w-full bg-black/10">
+        <div className="flex items-center justify-center h-full w-full bg-black/10 ">
           <AnimatePresence custom={direction} mode="wait">
             {currentImage && (
               <motion.img
